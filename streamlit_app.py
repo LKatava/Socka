@@ -36,9 +36,11 @@ if not st.session_state['data'].empty:
     end_date = st.date_input("Krajnji datum:", value=st.session_state['data']['Datum'].max())
 
     if start_date and end_date:
+        start_date = pd.to_datetime(start_date)
+        end_date = pd.to_datetime(end_date)
         filtered_data = st.session_state['data'][
-            (st.session_state['data']['Datum'] >= pd.to_datetime(start_date)) &
-            (st.session_state['data']['Datum'] <= pd.to_datetime(end_date))
+            (st.session_state['data']['Datum'] >= start_date) &
+            (st.session_state['data']['Datum'] <= end_date)
         ]
         st.dataframe(filtered_data)
 
